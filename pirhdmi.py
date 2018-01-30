@@ -8,7 +8,7 @@ GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)        # number by phisical pin 
 GPIO.setup(11, GPIO.IN)         # Read output from PIR motion sensor
 
-def readPir(debug):
+def readPir(debug=False):
     status = "off"         # [FIXME] this should be guessed by system
 
     #f = open(os.devnull, 'w')  # redirect stdout to /dev/null
@@ -34,22 +34,19 @@ def readPir(debug):
 def helper():
     sys.exit('Usage: sudo %s [--debug]' % sys.argv[0])
 
-def main(params):
-    debug = False
-    if len(sys.argv) > 1:
-        if sys.argv[1] in ["--debug","-v","--verbose"]:
-            print "Run in debug mode"
-            debug = True
-        else:
-            helper()
-    
-    readPir(debug)
-
 if __name__ == "__main__":
 
     if os.geteuid() != 0:
         print "Root access needed."
         helper()
+    elif len(sys.argv) > 1:
+        if sys.argv[1] in ["--debug","-v","--verbose"]:
+            print "Run in debug mode"
+            readPir(True)
+        else:
+            helper()
     else:
-        main(sys.argv[1])
+        readPir()
+
+   
 
