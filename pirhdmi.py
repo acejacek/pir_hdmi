@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 import RPi.GPIO as GPIO
-import sys, getopt, time
+import sys, os, getopt, time
 from subprocess import call
 
 GPIO.setwarnings(False)
@@ -32,5 +32,9 @@ def main(argv):
     readPir(debug)
 
 if __name__ == "__main__":
-    readPir(sys.argv[1:])
+
+    if os.geteuid() != 0:
+        print "I need root access. Run with sudo."
+    else:
+        readPir(sys.argv[1:])
 
