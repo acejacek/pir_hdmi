@@ -27,14 +27,16 @@ def readPir(debug):
                 time.sleep(30)     # monitor on for at least 30 seconds
                 status = "on"
 
-def main(argv):
-    debug = True
+def main(params):
+    debug = False
+    if params == "--debug":
+        debug = True
     readPir(debug)
 
 if __name__ == "__main__":
 
     if os.geteuid() != 0:
-        print "I need root access. Run with sudo."
+        sys.exit('Root access needed. Usage: sudo %s [--debug]' % sys.argv[0])
     else:
         readPir(sys.argv[1:])
 
