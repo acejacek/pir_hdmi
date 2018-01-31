@@ -34,10 +34,17 @@ def readPir():
     #call(["/opt/vc/bin/tvservice", "--off"])
     turn_hdmi(PIR_PIN)
 
-    GPIO.add_event_detect(PIR_PIN, GPIO.BOTH, callback=turn_hdmi, bouncetime=200)
+    try:
+        GPIO.add_event_detect(PIR_PIN, GPIO.BOTH, callback=turn_hdmi, bouncetime=200)
 
-    while True:
-        time.sleep(1e6)
+        while True:
+            time.sleep(1e6)
+
+    finally:
+        GPIO.cleanup()
+        if debug:
+            print "Reseting GPIO. End of program."
+
 
 def helper():
     sys.exit('Usage: %s [--debug]' % sys.argv[0])
