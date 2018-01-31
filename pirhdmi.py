@@ -21,12 +21,13 @@ def turn_hdmi(mode="on"):
 
 def readPir(debug = False):
 
+#    f = open(os.devnull, 'w')  # redirect stdout to /dev/null
+#    sys.stdout = f
+
     if debug:
         print "Starting with monitor ON."
     status = turn_hdmi("on")         # by default, turn on HDMI
 
-    #f = open(os.devnull, 'w')  # redirect stdout to /dev/null
-    #sys.stdout = f
 
     while True:
         i = GPIO.input(11)
@@ -40,6 +41,7 @@ def readPir(debug = False):
                 if debug:
                     print "Intruder detected, turning monitor ON."
                 status = turn_hdmi("on")
+        time.sleep(0.5)
 
 def helper():
     sys.exit('Usage: %s [--debug]' % sys.argv[0])
