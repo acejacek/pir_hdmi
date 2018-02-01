@@ -13,10 +13,12 @@ sudo apt-get install git
 
 2. Clone repository. From `pi` home execute:
 ```
-git clone path
+git clone https://github.com/acejacek/pir_hdmi.git
 ```
-New folder will appear, `pir_hdmi`. Navigate into it.
+New folder will appear: `pir_hdmi`. Navigate into it.
+
 3. In `pirhdmi.py` code adjust your setting, specifically `PIR_PIN` needs to be the same as used in your connection.
+
 4. Test if all works correctly:
 ```
 sudo python pirhdmi.py —debug
