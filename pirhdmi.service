@@ -1,0 +1,11 @@
+[Unit]
+Description=PIR HDMI Switch
+After=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python /home/pi/pir_hdmi/pirhdmi.py
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target
