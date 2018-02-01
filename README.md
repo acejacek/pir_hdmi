@@ -21,7 +21,7 @@ New folder will appear: `pir_hdmi`. Navigate into it.
 
 4. Test if all works correctly:
 ```
-sudo python pirhdmi.py —debug
+sudo python pirhdmi.py --debug
 ```
 
 5. Configure `systemd` daemon to run script. Copy service definition to `/lib/systemd/system` folder:
@@ -47,11 +47,14 @@ sudo systemctl status pirhdmi.service
 ```
 git pull
 ```
-2. If you copy updated service definition `pirhdmi.service` to `/lib/systemd/system` folder, remember to inform `systemd` about the changes:
+
+2. All your customizations can be overwritten. Check again, if `PIR_PIN` points to correct one.
+
+3. If you copy updated service definition `pirhdmi.service` to `/lib/systemd/system` folder, remember to inform `systemd` about the changes:
 ```
 sudo systemctl daemon-reload
 ```
-3. Restart service:
+4. Restart service:
 ```
 sudo systemctl restart pirhdmi.service
 ```
