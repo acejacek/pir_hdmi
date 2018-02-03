@@ -3,6 +3,8 @@
 This daemon allows to control HDMI output in Raspberry Pi. It can put monitor to sleep when no movement detected. It can be useful in kiosk applications. Works beautifully with [MagicMirror](https://magicmirror.builders). Requires [Passive Infrared Sensor](https://en.wikipedia.org/wiki/Passive_infrared_sensor) connected to Raspbrerry Pi. Look here for inspirations:
 
 - [https://www.modmypi.com](https://www.modmypi.com/blog/raspberry-pi-gpio-sensing-motion-detection)
+- [How to Interface a PIR Motion Sensor With Raspberry Pi GPIO](https://maker.pro/education/bluetooth-basics-how-to-control-an-led-using-a-smartphone-and-arduino-1)
+- [Raspberry Pi Motion Sensor using a PIR Sensor](https://pimylifeup.com/raspberry-pi-motion-sensor/)
 
 ## Installation
 
