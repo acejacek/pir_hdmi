@@ -17,12 +17,13 @@ git clone https://github.com/acejacek/pir_hdmi.git
 ```
 New folder will appear: `pir_hdmi`. Navigate into it.
 
-3. In `pirhdmi.py` code adjust your setting, specifically `PIR_PIN` needs to be the same as used in your connection.
+4. Test if all works correctly. Specify where your PIR is conencted (pin 11 in this example):
+```
+sudo python pirhdmi.py --help
+sudo python pirhdmi.py --debug --pir-pin 11
+```
 
-4. Test if all works correctly:
-```
-sudo python pirhdmi.py --debug
-```
+3. In `pirhdmi.service` adjust your setting, specifically `--pir-pin` to be the same as used in your connection.
 
 5. Configure `systemd` daemon to run script. Copy service definition to `/lib/systemd/system` folder:
 ```
@@ -48,7 +49,7 @@ sudo systemctl status pirhdmi.service
 git pull
 ```
 
-2. All your customizations can be overwritten. Check again, if `PIR_PIN` points to correct one.
+2. All your customizations can be overwritten. Check again, if `--pir-pin` in `pirhdmi.service` points to correct one.
 
 3. If you copy updated service definition `pirhdmi.service` to `/lib/systemd/system` folder, remember to inform `systemd` about the changes:
 ```
