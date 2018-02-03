@@ -80,7 +80,7 @@ if __name__ == "__main__":
         helper()
 
     try:
-        opts, args = getopt.getopt(sys.argv[1:],"vp:m:",["verbose","debug","pir-pin=","--gpio-mode="])
+        opts, args = getopt.getopt(sys.argv[1:],"vp:m:",["verbose","debug","pir-pin=","gpio-mode="])
 
     except getopt.GetoptError:
         helper()
