@@ -5,11 +5,6 @@ import sys, os, getopt
 from time import sleep
 from subprocess import call
 
-#PIR_PIN = 11                    
-#debug = False
-
-GPIO.setwarnings(False)
-
 def turn_hdmi(channel):
 
     output = None
@@ -23,7 +18,7 @@ def turn_hdmi(channel):
         call(["/opt/vc/bin/tvservice", "--off"],stdout=output)
 
 
-def readPir(PIR_PIN,gpio_mode=GPIO.BOARD, debug = False):
+def readPir(pir_pin,gpio_mode=GPIO.BOARD, debug = False):
 
     if gpio_mode == GPIO.BOARD:
         ports = [3,5,7,8,10,11,12,13,15,16,18,19,21,22,23,24,26,29,31,32,33,35,36,37,38,40]
@@ -32,23 +27,24 @@ def readPir(PIR_PIN,gpio_mode=GPIO.BOARD, debug = False):
 
     if debug:
         print "Board mode: " + str(gpio_mode)
-        print "PIR pin:    " + str(PIR_PIN)
+        print "PIR pin:    " + str(pir_pin)
 
     try:
+        GPIO.setwarnings(False)
         GPIO.setmode(gpio_mode) 
         
-        if PIR_PIN in ports:
-            if GPIO.gpio_function(PIR_PIN) == GPIO.IN:
-                GPIO.setup(PIR_PIN, GPIO.IN)    # Read output from PIR motion sensor
+        if pir_pin in ports:
+            if GPIO.gpio_function(pir_pin) == GPIO.IN:
+                GPIO.setup(pir_pin, GPIO.IN)    # Read output from PIR motion sensor
         else:
             print "\nERROR: pin is not an valid input."
             helper()
 
         if debug:
             print "Set initial state of HDMI port based on PIR input."
-        turn_hdmi(PIR_PIN)
+        turn_hdmi(pir_pin)
 
-        GPIO.add_event_detect(PIR_PIN, GPIO.BOTH, callback=turn_hdmi, bouncetime=200)
+        GPIO.add_event_detect(pir_pin, GPIO.BOTH, callback=turn_hdmi, bouncetime=200)
 
         while True:
             sleep(1e6)
@@ -91,7 +87,7 @@ if __name__ == "__main__":
 
     debug = False
     gpio_mode = GPIO.BOARD
-    PIR_PIN = ""
+    pir_pin = ""
 
     for opt, arg in opts:
 
@@ -101,7 +97,7 @@ if __name__ == "__main__":
 
         elif opt in ["-p","--pir-pin"]:
             if arg.isdigit():
-                PIR_PIN = int(arg)
+                pir_pin = int(arg)
             else:
                 print "\nERROR: Invalid pin number."
                 helper()
@@ -114,8 +110,8 @@ if __name__ == "__main__":
         else:
             helper()
 
-    if PIR_PIN == "":
+    if pir_pin == "":
         print "\nERROR: undefined PIR pin."
         helper()
 
-    readPir(PIR_PIN,gpio_mode,debug)
+    readPir(pir_pin,gpio_mode,debug)
