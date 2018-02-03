@@ -4,7 +4,7 @@ After=multi-user.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/python /home/pi/pir_hdmi/pirhdmi.py
+ExecStart=/usr/bin/python /home/pi/pir_hdmi/pirhdmi.py --pir-pin 11
 Restart=on-abort
 
 [Install]
