@@ -1,11 +1,11 @@
 #!/usr/bin/python
 
 import RPi.GPIO as GPIO
-import sys, os 
+import sys, os, getopt 
 from time import sleep
 from subprocess import call
 
-PIR_PIN = 11
+PIR_PIN = 11                    
 debug = False
 
 GPIO.setwarnings(False)
@@ -44,7 +44,7 @@ def readPir():
 
 
 def helper():
-    sys.exit('\nUsage: %s [--debug]\n' % sys.argv[0])
+    sys.exit('\nUsage: %s --pir-pin n [--debug]\n' % sys.argv[0])
 
 
 if __name__ == "__main__":
@@ -53,10 +53,21 @@ if __name__ == "__main__":
         print "/nRoot access needed. Try sudo."
         helper()
     elif len(sys.argv) > 1:
-        if sys.argv[1] in ["--debug","-v","--verbose"]:
-            print "Run in debug mode"
-            debug=True
-        else:
+        try:
+            opts, args = getopt.getopt(sys.argv[1:],"vp:",["verbose","debug","pir-pin="])
+        except getopt.GetoptError:
             helper()
-    
+
+        for opt, arg in opts:
+
+            if opt in ["--debug","-v","--verbose"]:
+                print "Running in debug mode."
+                debug=True
+
+            elif opt in ["-p","--pir-pin"]:
+                PIR_PIN = arg
+
+            else:
+                helper()
+
     readPir()
